@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { agentGroups } from "@/lib/agents";
+import { type AgentStatus } from "@/components/ui/status-badge";
 import { cn } from "@/lib/utils";
 import { CheckCircle2, Clock, Circle, ArrowRight } from "lucide-react";
 
@@ -12,10 +13,11 @@ const allAgents = agentGroups.flatMap((group) =>
   group.agents.map((agent) => ({ ...agent, group }))
 );
 
-const STATUS_CONFIG = {
+const STATUS_CONFIG: Record<AgentStatus, { label: string; color: string }> = {
   AVAILABLE: { label: "Available", color: "#4ade80" },
   IN_ACTIVE_DEVELOPMENT: { label: "In active development", color: "#fbbf24" },
   ON_THE_ROADMAP: { label: "On the roadmap", color: "#3f3f46" },
+  FLAGSHIP: { label: "Flagship", color: "#a78bfa" },
 };
 
 const SCROLL_PER_AGENT = 240;
