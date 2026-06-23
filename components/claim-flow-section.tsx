@@ -55,7 +55,7 @@ export function ClaimFlowSection() {
         />
       </div>
 
-      <div ref={ref} className="relative z-10 max-w-7xl mx-auto">
+      <div ref={ref} className="relative z-10 max-w-none mx-auto">
         <FadeUp className="mb-14 max-w-2xl">
           <p className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-zinc-700 mb-3">
             Claim journey

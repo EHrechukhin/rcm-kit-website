@@ -135,7 +135,7 @@ export default function IntegrationsPage() {
         </div>
 
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col gap-20">
+        <div className="relative z-10 max-w-none w-full mx-auto flex flex-col gap-20">
           <div className="flex lg:flex-row items-stretch gap-10">
             <div className="relative z-10 flex flex-col gap-6 lg:w-1/2">
               <FadeUp>
@@ -180,7 +180,7 @@ export default function IntegrationsPage() {
           }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-20">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-20">
           {groups.slice(0, 3).map((group) => (
             <FadeUp key={group.number}>
               <div className="flex items-center gap-4 mb-8">
@@ -262,7 +262,7 @@ export default function IntegrationsPage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-20">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-20">
           {groups.slice(3).map((group) => (
             <FadeUp key={group.number}>
               <div className="flex items-center gap-4 mb-8">

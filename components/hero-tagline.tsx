@@ -39,6 +39,7 @@ export function HeroTagline({ delay = 1.35 }: HeroTaglineProps) {
 
     let rafId = 0
     let W = 0
+    let xOffset = 0
     let charX: number[] = []
     let startTs: number | null = null
     let drops: Drop[] | null = null
@@ -61,14 +62,15 @@ export function HeroTagline({ delay = 1.35 }: HeroTaglineProps) {
       canvas!.height = CANVAS_H * dpr
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
       applyFont()
-      charX = chars.map((_, i) => ctx!.measureText(TEXT.slice(0, i)).width)
+      xOffset = Math.max(0, (W - ctx!.measureText(TEXT).width) / 2)
+      charX = chars.map((_, i) => xOffset + ctx!.measureText(TEXT.slice(0, i)).width)
     }
 
     function drawResolved() {
       ctx!.clearRect(0, 0, W, CANVAS_H)
       applyFont()
-      ctx!.fillStyle = "#52525b"
-      ctx!.fillText(TEXT, 0, TEXT_Y)
+      ctx!.fillStyle = "#a1a1aa"
+      ctx!.fillText(TEXT, xOffset, TEXT_Y)
     }
 
     function initDrops() {
@@ -116,7 +118,7 @@ export function HeroTagline({ delay = 1.35 }: HeroTaglineProps) {
           } else {
             // Falling glyph — fade in as it descends into the canvas
             const visibility = Math.max(0, (drop.y + CANVAS_H * 0.25) / (TEXT_Y + CANVAS_H * 0.25))
-            ctx!.fillStyle = `rgba(113,113,122,${visibility * 0.65})`
+            ctx!.fillStyle = `rgba(161,161,170,${visibility * 0.8})`
             ctx!.fillText(drop.glyph, x, drop.y)
             continue
           }
@@ -125,11 +127,11 @@ export function HeroTagline({ delay = 1.35 }: HeroTaglineProps) {
         // Locked: bright flash settling to zinc-600
         if (drop.flash > 0) {
           const t = drop.flash / 18
-          const v = Math.round(82 + t * 173) // #525 → #fff-ish → back to #525
+          const v = Math.round(161 + t * 94) // #a1a1aa → #fff → back to #a1a1aa
           ctx!.fillStyle = `rgb(${v},${v},${v})`
           drop.flash--
         } else {
-          ctx!.fillStyle = "#52525b"
+          ctx!.fillStyle = "#a1a1aa"
         }
         ctx!.fillText(chars[i], x, TEXT_Y)
       }

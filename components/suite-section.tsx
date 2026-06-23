@@ -62,7 +62,7 @@ export function TheSuiteSection() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(to right, transparent, var(--suite-signal), transparent)" }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-14">
+      <div className="relative z-10 max-w-none mx-auto flex flex-col gap-14">
 
         {/* -- Header -- */}
         <FadeUp className="max-w-3xl">

@@ -92,7 +92,7 @@ export function MetricsBar() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="max-w-none mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/6">
           {METRICS.map(({ Icon, value, decimals, prefix, suffix, label, color, note }, i) => (
             <motion.div

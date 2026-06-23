@@ -93,7 +93,7 @@ export default function Header() {
         WebkitBackdropFilter: "blur(20px)",
       } : undefined}
     >
-      <div className="max-w-7xl mx-auto h-16 flex items-center justify-between gap-8">
+      <div className="max-w-none mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1.5 shrink-0 group">
           <span className="text-white font-bold text-lg tracking-tight">

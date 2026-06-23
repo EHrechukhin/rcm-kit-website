@@ -27,7 +27,7 @@ export default function ROIEstimatorPage() {
           <div className="aurora-3 absolute bottom-[10%] right-[28%] w-100 h-90 rounded-full blur-[110px]" style={{ background: "var(--aurora-3)" }} />
         </div>
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <div className="relative z-10 max-w-none w-full mx-auto flex flex-col gap-6">
           <div className="flex lg:flex-row items-stretch gap-10">
             <div className="lg:w-1/2">
               <FadeUp>
@@ -57,7 +57,7 @@ export default function ROIEstimatorPage() {
       <section className="relative bg-[#F7F8FA] py-28 px-6 lg:px-10 border-t border-slate-200/70 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="relative z-10 max-w-none mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeUp>
             <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-black leading-[1.08] tracking-tight text-slate-900 mb-6">
               Model your{" "}
@@ -91,7 +91,7 @@ export default function ROIEstimatorPage() {
           <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px)" }} />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-14">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-14">
           <FadeUp>
             <p className="text-[11px] font-mono font-semibold uppercase tracking-[0.15em] mb-3" style={{ color: "var(--brand)" }}>The Three Value Vectors</p>
             <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-black leading-[1.08] tracking-tight">

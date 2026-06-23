@@ -143,7 +143,7 @@ export default function PlatformPage() {
           />
         </div>
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <div className="relative z-10 max-w-none w-full mx-auto flex flex-col gap-6">
           <div className="flex lg:flex-row items-stretch gap-10">
             <div className="lg:w-1/2">
               <FadeUp>
@@ -192,7 +192,7 @@ export default function PlatformPage() {
           }}
         />
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-16">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-16">
           <FadeUp>
             <p
               className="text-[11px] font-mono font-semibold uppercase tracking-[0.15em] mb-3"
@@ -301,7 +301,7 @@ export default function PlatformPage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-14">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-14">
           <FadeUp>
             <p
               className="text-[11px] font-mono font-semibold uppercase tracking-[0.15em] mb-3"

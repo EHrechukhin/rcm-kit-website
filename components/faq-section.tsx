@@ -34,7 +34,7 @@ const faqs = [
 export function FAQSection() {
   return (
     <section className="relative bg-white text-[#0f172a] py-28 px-6 lg:px-10">
-      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+      <div className="relative z-10 max-w-none mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
         <FadeUp>
           <div>
             <div className="eyebrow mb-5">Questions</div>

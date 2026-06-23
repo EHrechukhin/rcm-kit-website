@@ -59,7 +59,7 @@ export function TimelineSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-none mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
           {/* Left: copy */}

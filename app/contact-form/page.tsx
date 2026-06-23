@@ -17,7 +17,7 @@ export default function ContactFormPage() {
         </div>
       )}
 
-      <div className={`relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36`}>
+      <div className={`relative z-10 max-w-none mx-auto px-6 lg:px-10 py-28 lg:py-36`}>
         <FadeUp className="max-w-2xl mx-auto mb-16 text-center">
           <p className="text-[11px] font-mono font-semibold uppercase tracking-[0.15em] mb-4" style={{ color: "var(--brand)" }}>
             Contact
