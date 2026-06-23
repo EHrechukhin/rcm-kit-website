@@ -101,7 +101,7 @@ export default function SecurityPage() {
           />
         </div>
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <div className="relative z-10 max-w-none w-full mx-auto flex flex-col gap-6">
           <div className="flex lg:flex-row items-stretch gap-10">
             <div className="lg:w-1/2">
               <FadeUp>
@@ -147,7 +147,7 @@ export default function SecurityPage() {
           }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-14">
+        <div className="relative z-10 max-w-none mx-auto flex flex-col gap-14">
           <FadeUp>
             <p
               className="text-[11px] font-mono font-semibold uppercase tracking-[0.15em] mb-3"
@@ -223,7 +223,7 @@ export default function SecurityPage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="relative z-10 max-w-none mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeUp>
             <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-black leading-[1.08] tracking-tight mb-6">
               When a human is{" "}

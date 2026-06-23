@@ -12,7 +12,7 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="bg-black border-t border-white/[0.06] text-zinc-500 text-sm">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="max-w-none mx-auto px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}
         <div className="flex flex-col gap-4">
           <Link href="/" className="text-white font-bold text-base tracking-tight">

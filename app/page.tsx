@@ -16,9 +16,9 @@ import { TheSuiteSection } from "@/components/suite-section";
 import { TheProblemSection } from "@/components/problem-section";
 import { HeroCanvas } from "@/components/hero-canvas";
 import { HeroTagline } from "@/components/hero-tagline";
+import { HeroEarlyAccessForm } from "@/components/hero-early-access-form";
 import { ROIEstimator } from "@/components/roi-estimator";
 import { useContactModal } from "@/components/contact-modal/useContactModal";
-import { ContactForm } from "@/components/contact-modal/ContactForm";
 import { BookDemoForm } from "@/components/contact-modal/BookDemoForm";
 import {
   ShieldCheck,
@@ -26,7 +26,6 @@ import {
   GitBranch,
   BarChart3,
   Layers,
-  ArrowRight,
   CheckCircle2,
   Clock,
   Zap,
@@ -90,7 +89,7 @@ type WindowState = "normal" | "minimized" | "closed" | "expanded";
 function AgentActivityFeed() {
   const { open } = useContactModal();
   const [startIndex, setStartIndex] = useState(0);
-  const [windowState, setWindowState] = useState<WindowState>("normal");
+  const [windowState, setWindowState] = useState<WindowState>("closed");
   const [dotsHovered, setDotsHovered] = useState(false);
 
   useEffect(() => {
@@ -326,7 +325,6 @@ function AgentActivityFeed() {
 
 
 export default function HomePage() {
-  const { open } = useContactModal();
   const { scrollY } = useScroll();
   const glowOpacity = useTransform(scrollY, [0, 500], [1, 0]);
   const glowScale = useTransform(scrollY, [0, 500], [1, 0.7]);
@@ -381,10 +379,10 @@ export default function HomePage() {
           }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-24">
-          <div className="flex flex-col gap-6">
+        <div className="relative z-10 max-w-none mx-auto px-6 lg:px-10 py-24">
+          <div className="flex flex-col items-center text-center gap-6">
             <motion.h1
-              className="text-[clamp(3.25rem,7.5vw,6.5rem)] font-black leading-[0.9] tracking-tight max-w-5xl"
+              className="text-[clamp(2.25rem,5.2vw,5rem)] font-black leading-[0.95] tracking-tight max-w-none whitespace-nowrap"
             >
               <motion.span
                 className="block"
@@ -392,20 +390,20 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.65, ease, delay: 0.2 }}
               >
-                Stop staffing your revenue cycle.
+                Stop staffing your
               </motion.span>
               <motion.span
-                className="gradient-text block mt-2"
+                className="block mt-2"
                 initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.65, ease, delay: 0.5 }}
               >
-                Deploy it.
+                revenue cycle. <span className="gradient-text">Deploy it.</span>
               </motion.span>
             </motion.h1>
 
             <motion.p
-              className="text-[1.0625rem] leading-[1.75] text-zinc-400 max-w-2xl"
+              className="text-[1.0625rem] leading-[1.75] text-zinc-400 max-w-3xl"
               initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.65, ease, delay: 0.95 }}
@@ -415,20 +413,7 @@ export default function HomePage() {
               humans in the loop where judgment matters.
             </motion.p>
 
-            <motion.div
-              className="flex flex-wrap gap-3 pt-1"
-              initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.55, ease, delay: 1.15 }}
-            >
-              <button onClick={() => open(<ContactForm />, "Contact us")} className="group btn-cta">
-                Contact
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
-              <Link href="/platform" className="btn-outline">
-                See the platform
-              </Link>
-            </motion.div>
+            <HeroEarlyAccessForm delay={1.15} />
 
             <HeroTagline delay={1.35} />
           </div>
@@ -465,7 +450,7 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="relative z-10 max-w-none mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
             <FadeUp>
               <h2 className="text-[clamp(2rem,4vw,3rem)] font-black leading-[1.08] tracking-tight mb-6">
@@ -605,7 +590,7 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="relative z-10 max-w-none mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeUp>
             <h2 className="text-[clamp(2rem,4vw,3rem)] font-black leading-[1.08] tracking-tight mb-6">
               See the illustrative{" "}

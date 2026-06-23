@@ -21,7 +21,7 @@ export function ContactSection({ id = "contact" }: { id?: string }) {
       id={id}
       className="bg-black relative py-28 px-6 lg:px-10 border-t border-white/6 overflow-hidden grain"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16 items-start">
+      <div className="max-w-none mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16 items-start">
         <FadeUp className="lg:sticky lg:top-40">
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-black leading-[1.08] tracking-tight mb-6">
             Deploy your{" "}

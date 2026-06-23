@@ -20,7 +20,7 @@ export default function SolutionsPage() {
           <div className="aurora-3 absolute bottom-[5%] right-[30%] w-100 h-90 rounded-full blur-[110px]" style={{ background: "var(--aurora-3)" }} />
         </div>
         <HeroCanvas />
-        <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col gap-6">
+        <div className="relative z-10 max-w-none w-full mx-auto flex flex-col gap-6">
           <div className="flex lg:flex-row items-stretch gap-10">
             <div className="lg:w-1/2">
               <FadeUp>
@@ -49,7 +49,7 @@ export default function SolutionsPage() {
       {/* ── Agent Grid (light) ── */}
       <section className="relative bg-[#F7F8FA] py-20 px-6 lg:px-10 border-t border-slate-200/70 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="relative z-10 max-w-none mx-auto">
           <AgentGrid dark />
         </div>
       </section>
