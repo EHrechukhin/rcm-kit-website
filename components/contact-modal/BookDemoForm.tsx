@@ -25,6 +25,8 @@ export function BookDemoForm() {
   const [fields, setFields] = useState<Fields>({ name: "", email: "" });
   const [errors, setErrors] = useState<Errors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof Fields, boolean>>>({});
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -45,7 +47,8 @@ export function BookDemoForm() {
     setTouched({ name: true, email: true });
     const errs = validate(fields);
     setErrors(errs);
-    if (Object.keys(errs).length) return;
+    setConsentError(!consent);
+    if (Object.keys(errs).length || !consent) return;
     setSubmitting(true);
     await new Promise((r) => setTimeout(r, 1400));
     setSubmitting(false);
@@ -117,6 +120,32 @@ export function BookDemoForm() {
           {touched.email && errors.email && (
             <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="mt-1.5 text-xs text-red-400">{errors.email}</motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <div>
+        <label htmlFor="bd-consent" className="flex items-start gap-2.5 cursor-pointer select-none">
+          <input
+            id="bd-consent"
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => { setConsent(e.target.checked); if (e.target.checked) setConsentError(false); }}
+            disabled={submitting}
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/[0.05] accent-[var(--brand,#6366f1)] focus:outline-none focus:ring-1 focus:ring-white/25 disabled:opacity-50"
+          />
+          <span className="text-xs leading-relaxed text-zinc-400">
+            By submitting this form, you agree to our{" "}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-zinc-300 underline underline-offset-2 hover:text-white transition-colors">
+              Privacy Policy
+            </a>{" "}
+            and consent to being contacted about your demo request.
+          </span>
+        </label>
+        <AnimatePresence>
+          {consentError && (
+            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="mt-1.5 text-xs text-red-400">Please accept to continue.</motion.p>
           )}
         </AnimatePresence>
       </div>
