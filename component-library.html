@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCMKit — Meridian Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════
+       MERIDIAN DESIGN TOKENS
+       ═══════════════════════════════════════════════ */
+    :root {
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Ink palette */
+      --ink-950: #050811;
+      --ink-900: #070D1A;
+      --ink-800: #0A1220;
+      --ink-700: #0D1728;
+      --ink-600: #111E34;
+      --ink-500: #162540;
+      --ink-400: #1E3154;
+      --ink-300: #2A4170;
+
+      /* Blue */
+      --blue-300: #93C5FD;
+      --blue-400: #60A5FA;
+      --blue-500: #3B82F6;
+      --blue-600: #2563EB;
+
+      /* Surfaces */
+      --surface-page:    var(--ink-950);
+      --surface-base:    var(--ink-900);
+      --surface-raised:  var(--ink-800);
+      --surface-overlay: var(--ink-700);
+
+      /* Text */
+      --text-primary:   #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-tertiary:  #475569;
+      --text-link:      var(--blue-400);
+
+      /* Borders */
+      --border-default: rgba(255,255,255,0.08);
+      --border-strong:  rgba(255,255,255,0.14);
+      --border-subtle:  rgba(255,255,255,0.04);
+      --border-focus:   var(--blue-500);
+
+      /* Brand */
+      --brand:             var(--blue-500);
+      --brand-hover:       var(--blue-400);
+      --brand-subtle:      rgba(59,130,246,0.12);
+      --brand-subtle-text: var(--blue-300);
+      --brand-on:          #FFFFFF;
+
+      /* Status: Available */
+      --status-success-bg:     rgba(16,185,129,0.12);
+      --status-success-text:   #4ADE80;
+      --status-success-border: rgba(16,185,129,0.25);
+
+      /* Status: In Dev */
+      --status-warning-bg:     rgba(245,158,11,0.12);
+      --status-warning-text:   #FBBF24;
+      --status-warning-border: rgba(245,158,11,0.25);
+
+      /* Status: Roadmap */
+      --status-neutral-bg:     rgba(148,163,184,0.10);
+      --status-neutral-text:   #94A3B8;
+      --status-neutral-border: rgba(148,163,184,0.20);
+
+      /* Status: Flagship */
+      --status-flagship-bg:     rgba(59,130,246,0.12);
+      --status-flagship-text:   var(--blue-300);
+      --status-flagship-border: rgba(59,130,246,0.25);
+
+      /* Shadows */
+      --shadow-md:              0 8px 32px rgba(0,0,0,0.4);
+      --shadow-lg:              0 16px 48px rgba(0,0,0,0.5);
+      --shadow-glow-brand:      0 0 40px rgba(59,130,246,0.15), 0 8px 32px rgba(0,0,0,0.4);
+      --shadow-glow-white:      0 0 40px rgba(255,255,255,0.10);
+
+      /* Glass */
+      --glass-bg:           rgba(255,255,255,0.03);
+      --glass-bg-hover:     rgba(255,255,255,0.06);
+      --glass-border:       rgba(255,255,255,0.07);
+      --glass-border-hover: rgba(255,255,255,0.14);
+
+      /* Easing */
+      --ease-emphasized: cubic-bezier(0.21,0.47,0.32,0.98);
+      --ease-standard:   cubic-bezier(0.4,0,0.2,1);
+      --ease-enter:      cubic-bezier(0,0,0.2,1);
+
+      /* Motion */
+      --motion-fast:   150ms;
+      --motion-medium: 300ms;
+      --motion-slow:   500ms;
+
+      /* Radius */
+      --radius-sm:  6px;
+      --radius-md:  8px;
+      --radius-lg:  12px;
+      --radius-xl:  16px;
+      --radius-2xl: 20px;
+      --radius-full: 9999px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       BASE RESET
+       ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--surface-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════════
+       PAGE SHELL
+       ═══════════════════════════════════════════════ */
+    .page-header {
+      background: var(--surface-base);
+      border-bottom: 1px solid var(--border-default);
+      padding: 2rem 2.5rem;
+    }
+    .page-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .page-header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .page-header h1 span { color: var(--brand); }
+    .page-header p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+    .page-header .version {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      padding: 0.25rem 0.625rem;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    .page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5,8,17,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 2.5rem;
+    }
+    .page-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .page-nav-inner::-webkit-scrollbar { display: none; }
+    .page-nav a {
+      display: inline-block;
+      padding: 0.875rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 150ms, border-color 150ms;
+    }
+    .page-nav a:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--brand);
+    }
+
+    .page-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+    }
+
+    /* Section header */
+    .section-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .section-header h2 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-header p {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+    .section-label-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brand);
+      background: var(--brand-subtle);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: var(--radius-full);
+      padding: 0.2rem 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Swatch row / component row */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .col { display: flex; flex-direction: column; gap: 0.5rem; }
+    .label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════
+       COLOR SWATCHES
+       ═══════════════════════════════════════════════ */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+    }
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+    .swatch-block {
+      height: 60px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .swatch-name {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+    }
+    .swatch-value {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+    }
+
+    /* ═══════════════════════════════════════════════
+       TYPOGRAPHY SPECIMENS
+       ═══════════════════════════════════════════════ */
+    .type-specimen {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .type-specimen:last-child { border-bottom: none; }
+    .type-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .type-meta span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+    }
+    .t-display-xl {
+      font-size: clamp(2.8rem, 7.5vw, 5.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+    }
+    .t-h1 {
+      font-size: clamp(1.875rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+    }
+    .t-h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .t-h3 {
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.008em;
+    }
+    .t-h4 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.005em; }
+    .t-body-lg { font-size: 1.125rem; font-weight: 400; line-height: 1.7; }
+    .t-body { font-size: 1rem; font-weight: 400; line-height: 1.7; }
+    .t-body-sm { font-size: 0.9375rem; font-weight: 400; line-height: 1.6; }
+    .t-body-xs { font-size: 0.875rem; font-weight: 400; line-height: 1.6; }
+    .t-overline {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .t-stat {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: var(--blue-400);
+    }
+    .t-mono {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════════════ */
+    button, a.btn { cursor: pointer; font-family: var(--font-sans); }
+
+    .btn-base {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      white-space: nowrap;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition:
+        transform     200ms var(--ease-emphasized),
+        box-shadow    200ms var(--ease-standard),
+        background    150ms var(--ease-standard),
+        border-color  150ms var(--ease-standard);
+    }
+    .btn-base > * { position: relative; z-index: 1; }
+    .btn-base:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    /* Shimmer pseudo */
+    .btn-shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -70%;
+      width: 45%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-16deg);
+      pointer-events: none;
+    }
+    .btn-shimmer:hover::before { animation: shimmer 0.55s ease forwards; }
+
+    /* Sizes */
+    .btn-lg { height: 3rem;   padding: 0 1.75rem; font-size: 1rem; }
+    .btn-md { height: 2.75rem; padding: 0 1.5rem;  font-size: 0.9375rem; }
+    .btn-sm { height: 2.5rem; padding: 0 1.25rem; font-size: 0.875rem; border-radius: var(--radius-md) !important; }
+    .btn-xs { height: 2.125rem; padding: 0 0.875rem; font-size: 0.8125rem; border-radius: var(--radius-sm) !important; }
+    .btn-nav-size { height: 2.25rem; padding: 0 1rem; font-size: 0.875rem; border-radius: var(--radius-md) !important; }
+
+    /* Variants */
+    .btn-cta {
+      background: #FFFFFF;
+      color: #000000;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .btn-cta::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    }
+    .btn-cta:hover {
+      background: #F3F6FA;
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 0 32px rgba(255,255,255,0.2), 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .btn-cta:active { transform: translateY(0) scale(0.985); transition-duration: 80ms; }
+
+    .btn-brand {
+      background: var(--brand);
+      color: #FFFFFF;
+    }
+    .btn-brand:hover {
+      background: var(--brand-hover);
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: var(--shadow-glow-brand);
+    }
+    .btn-brand:active { transform: translateY(0) scale(0.985); transition-duration: 80ms; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .btn-outline::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, var(--brand-subtle) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 200ms;
+    }
+    .btn-outline:hover::before { opacity: 1; }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px var(--brand-subtle), 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .btn-outline:active { transform: translateY(1px); transition-duration: 80ms; }
+
+    .btn-glass {
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .btn-glass:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--glass-border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow-brand);
+    }
+    .btn-glass:active { transform: translateY(0); transition-duration: 80ms; }
+
+    .btn-nav-style {
+      background: #FFFFFF;
+      color: #000000;
+    }
+    .btn-nav-style:hover {
+      background: #F1F5F9;
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.14), 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .btn-nav-style:active { transform: translateY(0); transition-duration: 60ms; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: rgba(244,63,94,0.10);
+      color: #FB7185;
+      border: 1px solid rgba(244,63,94,0.2);
+    }
+    .btn-destructive:hover {
+      background: rgba(244,63,94,0.18);
+      border-color: rgba(244,63,94,0.35);
+    }
+
+    .btn-glow-pulse { animation: btn-glow-pulse 2.2s ease infinite; }
+
+    @keyframes shimmer {
+      from { left: -70%; }
+      to   { left: 120%; }
+    }
+    @keyframes btn-glow-pulse {
+      0%,100% { box-shadow: var(--shadow-glow-brand); }
+      50%      { box-shadow: 0 0 60px rgba(59,130,246,0.25), 0 12px 48px rgba(0,0,0,0.5); }
+    }
+
+    /* Icon button */
+    .btn-icon { width: 2.5rem; height: 2.5rem; padding: 0; border-radius: var(--radius-md); }
+    .btn-icon-sm { width: 2rem; height: 2rem; padding: 0; border-radius: var(--radius-sm); }
+
+    /* ═══════════════════════════════════════════════
+       BADGES
+       ═══════════════════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border-radius: var(--radius-full);
+      padding: 0.1875rem 0.625rem;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .badge-available  { background: var(--status-success-bg);  color: var(--status-success-text);  border-color: var(--status-success-border);  }
+    .badge-dev        { background: var(--status-warning-bg);  color: var(--status-warning-text);  border-color: var(--status-warning-border);  }
+    .badge-roadmap    { background: var(--status-neutral-bg);  color: var(--status-neutral-text);  border-color: var(--status-neutral-border);  }
+    .badge-flagship   { background: var(--status-flagship-bg); color: var(--status-flagship-text); border-color: var(--status-flagship-border); }
+
+    /* shadcn-style badges */
+    .badge-default  { background: var(--brand);                color: #FFFFFF; }
+    .badge-secondary { background: var(--surface-overlay);     color: var(--text-primary); }
+    .badge-outline  { background: transparent; color: var(--text-primary); border: 1px solid var(--border-default); }
+    .badge-ghost    { background: var(--glass-bg); color: var(--text-secondary); }
+    .badge-destructive { background: rgba(244,63,94,0.12); color: #FB7185; border-color: rgba(244,63,94,0.25); }
+
+    /* ═══════════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════════ */
+    .card {
+      background: var(--surface-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .card-title { font-size: 1rem; font-weight: 600; }
+    .card-desc  { font-size: 0.875rem; color: var(--text-secondary); }
+    .card-footer-inner {
+      margin: 0 -1.5rem -1.5rem;
+      padding: 0.875rem 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid var(--border-subtle);
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+    .card-raised {
+      background: var(--surface-raised);
+      border-color: var(--border-strong);
+    }
+
+    /* Glow card */
+    .glow-card {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow: hidden;
+      transition: border-color 300ms ease, box-shadow 300ms ease, background 300ms ease;
+    }
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(59,130,246,0.07) 0%, transparent 50%, rgba(167,139,250,0.05) 100%);
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+    .glow-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(167,139,250,0.3), transparent);
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+    .glow-card:hover::before,
+    .glow-card:hover::after { opacity: 1; }
+    .glow-card:hover {
+      border-color: rgba(59,130,246,0.25);
+      box-shadow: 0 0 40px rgba(59,130,246,0.07), 0 8px 32px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Feature card */
+    .feature-card {
+      background: var(--ink-800);
+      border: 1px solid var(--ink-600);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .feature-card-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--blue-400);
+      flex-shrink: 0;
+    }
+    .feature-card h4 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+    .feature-card p  { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Agent card */
+    .agent-card {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      cursor: default;
+      overflow: hidden;
+      transition: transform 200ms var(--ease-emphasized),
+                  border-color 300ms ease,
+                  box-shadow 300ms ease,
+                  background 300ms ease;
+    }
+    .agent-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(59,130,246,0.07) 0%, transparent 50%, rgba(167,139,250,0.05) 100%);
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+    .agent-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(167,139,250,0.3), transparent);
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+    .agent-card:hover { transform: translateY(-2px); }
+    .agent-card:hover::before,
+    .agent-card:hover::after { opacity: 1; }
+    .agent-card:hover {
+      border-color: rgba(59,130,246,0.25);
+      box-shadow: 0 0 40px rgba(59,130,246,0.07), 0 8px 32px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.05);
+    }
+    .agent-card h4 {
+      position: relative;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .agent-card p {
+      position: relative;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .agent-card .learn-more {
+      position: relative;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION LABEL
+       ═══════════════════════════════════════════════ */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue-400);
+    }
+    .section-label.light-mode { color: var(--blue-600); }
+
+    /* ═══════════════════════════════════════════════
+       STAT BLOCK
+       ═══════════════════════════════════════════════ */
+    .stat-block { display: flex; flex-direction: column; gap: 0.25rem; }
+    .stat-value {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--blue-400);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .stat-source {
+      font-size: 0.75rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════
+       STEP ITEM
+       ═══════════════════════════════════════════════ */
+    .step-item {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .step-number {
+      font-family: var(--font-mono);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--blue-400);
+      flex-shrink: 0;
+    }
+    .step-body { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.5rem; }
+    .step-body h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+    .step-body p  { font-size: 1rem; line-height: 1.7; color: var(--text-secondary); }
+
+    /* ═══════════════════════════════════════════════
+       TRUST BADGE STRIP
+       ═══════════════════════════════════════════════ */
+    .trust-strip {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════
+       OVERLINE CHIP
+       ═══════════════════════════════════════════════ */
+    .overline-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.3125rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: var(--brand-subtle);
+      border: 1px solid rgba(59,130,246,0.18);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brand-subtle-text);
+    }
+    .overline-chip .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* ═══════════════════════════════════════════════
+       FORM ELEMENTS
+       ═══════════════════════════════════════════════ */
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+    .form-label { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); }
+    .form-hint  { font-size: 0.8125rem; color: var(--text-secondary); }
+
+    .input {
+      width: 100%;
+      height: 2.75rem;
+      padding: 0 0.875rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .input::placeholder { color: var(--text-tertiary); }
+    .input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .textarea {
+      width: 100%;
+      min-height: 7rem;
+      padding: 0.75rem 0.875rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      outline: none;
+      resize: vertical;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .textarea::placeholder { color: var(--text-tertiary); }
+    .textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+
+    .select {
+      width: 100%;
+      height: 2.75rem;
+      padding: 0 0.875rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.875rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+    .select option { background: var(--surface-overlay); }
+
+    /* Checkbox / Radio */
+    .check-label {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .check-input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--brand);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION HEADER
+       ═══════════════════════════════════════════════ */
+    .demo-header {
+      background: rgba(5,8,17,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      height: 4rem;
+    }
+    .demo-logo {
+      font-size: 1.125rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .demo-logo span { color: var(--brand); }
+    .demo-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.125rem;
+      flex: 1;
+      justify-content: center;
+    }
+    .demo-nav a {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color 150ms, background 150ms;
+    }
+    .demo-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════ */
+    .demo-footer {
+      background: var(--surface-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+    }
+    .demo-footer h3 { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.75rem; }
+    .demo-footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .demo-footer li a { font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; transition: color 150ms; }
+    .demo-footer li a:hover { color: var(--text-primary); }
+    .footer-brand-name { font-size: 1.125rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .footer-brand-name span { color: var(--brand); }
+    .footer-brand-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; max-width: 240px; }
+
+    /* ═══════════════════════════════════════════════
+       ICON SVGs (inline for zero deps)
+       ═══════════════════════════════════════════════ */
+    .icon { display: inline-block; vertical-align: middle; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+
+    /* ═══════════════════════════════════════════════
+       SEPARATOR
+       ═══════════════════════════════════════════════ */
+    .separator { height: 1px; background: var(--border-subtle); }
+    .separator-v { width: 1px; background: var(--border-subtle); align-self: stretch; }
+
+    /* ═══════════════════════════════════════════════
+       ACCORDION
+       ═══════════════════════════════════════════════ */
+    .accordion { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border-default); border-radius: var(--radius-lg); overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--border-subtle); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
+      transition: background 150ms;
+    }
+    .accordion-trigger:hover { background: rgba(255,255,255,0.03); }
+    .accordion-trigger .chevron {
+      width: 16px;
+      height: 16px;
+      color: var(--text-tertiary);
+      transition: transform 250ms var(--ease-emphasized);
+      flex-shrink: 0;
+    }
+    .accordion-item.open .accordion-trigger .chevron { transform: rotate(180deg); }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms var(--ease-enter);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .accordion-item.open .accordion-content { max-height: 200px; }
+    .accordion-content-inner { padding: 0 1.25rem 1rem; }
+
+    /* ═══════════════════════════════════════════════
+       GRID UTILITY
+       ═══════════════════════════════════════════════ */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO DEMO SECTION
+       ═══════════════════════════════════════════════ */
+    .hero-demo {
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37,99,235,0.14) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 80% 50%, rgba(124,58,237,0.08) 0%, transparent 50%),
+                  var(--surface-page);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-2xl);
+      padding: 5rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .hero-demo h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 640px;
+    }
+    .hero-demo p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero-demo .cta-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT FORM DEMO
+       ═══════════════════════════════════════════════ */
+    .contact-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-2xl);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 520px;
+    }
+    .contact-card h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+    .contact-card p  { font-size: 0.9375rem; color: var(--text-secondary); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════════════════════════
+       SLIDER DEMO
+       ═══════════════════════════════════════════════ */
+    .slider {
+      width: 100%;
+      accent-color: var(--brand);
+      cursor: pointer;
+      height: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MISC
+       ═══════════════════════════════════════════════ */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: 0.125rem 0.375rem;
+      color: var(--blue-300);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Page header ── -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <h1>RCM<span>Kit</span> — Meridian Design System</h1>
+        <p>Component library · Dark theme · Healthcare AI enterprise</p>
+      </div>
+      <span class="version">v1.0 · 2026</span>
+    </div>
+  </header>
+
+  <!-- ── Sticky nav ── -->
+  <nav class="page-nav">
+    <div class="page-nav-inner">
+      <a href="#tokens">Tokens</a>
+      <a href="#typography">Typography</a>
+      <a href="#buttons">Buttons</a>
+      <a href="#badges">Badges</a>
+      <a href="#cards">Cards</a>
+      <a href="#ui-atoms">UI Atoms</a>
+      <a href="#forms">Forms</a>
+      <a href="#accordion">Accordion</a>
+      <a href="#layout">Layout</a>
+      <a href="#hero">Hero Demo</a>
+    </div>
+  </nav>
+
+  <main class="page-main">
+
+    <!-- ══════════════════════════════════════════════
+         DESIGN TOKENS
+         ══════════════════════════════════════════════ -->
+    <section id="tokens">
+      <div class="section-header">
+        <div class="section-label-pill">Foundation</div>
+        <h2>Design Tokens</h2>
+        <p>Semantic color palette — Meridian dark theme. All surfaces reference CSS custom properties.</p>
+      </div>
+
+      <div class="col" style="gap:2rem;">
+        <!-- Brand / Blue -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Brand · Blue</p>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="swatch-block" style="background:#EFF6FF;"></div><p class="swatch-name">blue-50</p><p class="swatch-value">#EFF6FF</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#DBEAFE;"></div><p class="swatch-name">blue-100</p><p class="swatch-value">#DBEAFE</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#93C5FD;"></div><p class="swatch-name">blue-300</p><p class="swatch-value">#93C5FD</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#60A5FA;"></div><p class="swatch-name">blue-400</p><p class="swatch-value">#60A5FA</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#3B82F6;"></div><p class="swatch-name">blue-500 · brand</p><p class="swatch-value">#3B82F6</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#2563EB;"></div><p class="swatch-name">blue-600</p><p class="swatch-value">#2563EB</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#1D4ED8;"></div><p class="swatch-name">blue-700</p><p class="swatch-value">#1D4ED8</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#1E3A8A;"></div><p class="swatch-name">blue-900</p><p class="swatch-value">#1E3A8A</p></div>
+          </div>
+        </div>
+
+        <!-- Surfaces -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Ink — Surface hierarchy (dark)</p>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="swatch-block" style="background:#050811;border:1px solid rgba(255,255,255,0.12);"></div><p class="swatch-name">surface-page</p><p class="swatch-value">#050811</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#070D1A;"></div><p class="swatch-name">surface-base</p><p class="swatch-value">#070D1A</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#0A1220;"></div><p class="swatch-name">surface-raised</p><p class="swatch-value">#0A1220</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#0D1728;"></div><p class="swatch-name">surface-overlay</p><p class="swatch-value">#0D1728</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#111E34;"></div><p class="swatch-name">ink-600</p><p class="swatch-value">#111E34</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#1E3154;"></div><p class="swatch-name">ink-400</p><p class="swatch-value">#1E3154</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#2A4170;"></div><p class="swatch-name">ink-300</p><p class="swatch-value">#2A4170</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#5472A8;"></div><p class="swatch-name">ink-100</p><p class="swatch-value">#5472A8</p></div>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Semantic Status</p>
+          <div class="swatch-grid">
+            <div class="swatch"><div class="swatch-block" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);"></div><p class="swatch-name">success · available</p><p class="swatch-value">#4ADE80</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);"></div><p class="swatch-name">warning · in dev</p><p class="swatch-value">#FBBF24</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:rgba(148,163,184,0.10);border:1px solid rgba(148,163,184,0.2);"></div><p class="swatch-name">neutral · roadmap</p><p class="swatch-value">#94A3B8</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);"></div><p class="swatch-name">flagship</p><p class="swatch-value">#93C5FD</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#10B981;"></div><p class="swatch-name">emerald-500</p><p class="swatch-value">#10B981</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#F59E0B;"></div><p class="swatch-name">amber-500</p><p class="swatch-value">#F59E0B</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#8B5CF6;"></div><p class="swatch-name">violet-500 · AI</p><p class="swatch-value">#8B5CF6</p></div>
+            <div class="swatch"><div class="swatch-block" style="background:#F43F5E;"></div><p class="swatch-name">rose-500 · danger</p><p class="swatch-value">#F43F5E</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         TYPOGRAPHY
+         ══════════════════════════════════════════════ -->
+    <section id="typography">
+      <div class="section-header">
+        <div class="section-label-pill">Typography</div>
+        <h2>Type Scale</h2>
+        <p>Inter for body, JetBrains Mono for code and labels.</p>
+      </div>
+
+      <div class="type-specimen">
+        <div class="t-display-xl">Display XL</div>
+        <div class="type-meta"><span>clamp(2.8rem → 5.5rem)</span><span>weight 800</span><span>leading 0.95</span><span>tracking -0.025em</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-h1">Heading 1 — AI-Powered RCM</div>
+        <div class="type-meta"><span>clamp(1.875rem → 3rem)</span><span>weight 700</span><span>leading 1.1</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-h2">Heading 2 — Revenue Intelligence</div>
+        <div class="type-meta"><span>clamp(1.5rem → 2.25rem)</span><span>weight 600</span><span>leading 1.2</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-h3">Heading 3 — Denial Management</div>
+        <div class="type-meta"><span>clamp(1.25rem → 1.5rem)</span><span>weight 600</span><span>leading 1.3</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-h4">Heading 4 — Prior Authorization</div>
+        <div class="type-meta"><span>1.125rem</span><span>weight 600</span><span>leading 1.4</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-body-lg">Body Large — Healthcare revenue cycle automation for modern practices.</div>
+        <div class="type-meta"><span>1.125rem</span><span>weight 400</span><span>leading 1.7</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-body">Body — RCMKit brings together 18 purpose-built AI agents that handle every step of the revenue cycle.</div>
+        <div class="type-meta"><span>1rem</span><span>weight 400</span><span>leading 1.7</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-body-xs" style="color:var(--text-secondary)">Body XS — Muted secondary text for captions and helper content.</div>
+        <div class="type-meta"><span>0.875rem</span><span>weight 400</span><span>leading 1.6</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-overline">Section overline label</div>
+        <div class="type-meta"><span>0.6875rem</span><span>weight 700</span><span>tracking 0.15em</span><span>uppercase</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-stat">97.3%</div>
+        <div class="type-meta"><span>clamp(2.5rem → 4rem)</span><span>weight 800</span><span>tabular-nums</span><span>tracking -0.03em</span></div>
+      </div>
+      <div class="type-specimen">
+        <div class="t-mono">const agent = new RCMAgent({ type: 'denial', model: 'claude-sonnet-4-6' })</div>
+        <div class="type-meta"><span>JetBrains Mono</span><span>0.875rem</span><span>weight 400</span></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         BUTTONS
+         ══════════════════════════════════════════════ -->
+    <section id="buttons">
+      <div class="section-header">
+        <div class="section-label-pill">Actions</div>
+        <h2>Buttons</h2>
+        <p>5 variants × 4 sizes. Shimmer + lift effects on hover. Theme-adaptive.</p>
+      </div>
+
+      <!-- Primary row -->
+      <div class="col" style="gap:1.5rem;">
+        <div class="col">
+          <p class="label">Variants</p>
+          <div class="row" style="align-items:center;">
+            <div class="col"><span class="label">CTA (White)</span><button class="btn-base btn-shimmer btn-cta btn-lg">Get Started →</button></div>
+            <div class="col"><span class="label">Brand (Blue)</span><button class="btn-base btn-shimmer btn-brand btn-lg">Book Demo</button></div>
+            <div class="col"><span class="label">Outline</span><button class="btn-base btn-outline btn-lg">Learn More</button></div>
+            <div class="col"><span class="label">Glass</span><button class="btn-base btn-glass btn-lg">Explore</button></div>
+            <div class="col"><span class="label">Ghost</span><button class="btn-base btn-ghost btn-lg">Cancel</button></div>
+            <div class="col"><span class="label">Destructive</span><button class="btn-base btn-destructive btn-lg">Delete</button></div>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">Sizes</p>
+          <div class="row" style="align-items:center;">
+            <div class="col"><span class="label">lg (3rem)</span><button class="btn-base btn-brand btn-lg">Get Started</button></div>
+            <div class="col"><span class="label">md (2.75rem)</span><button class="btn-base btn-brand btn-md">Get Started</button></div>
+            <div class="col"><span class="label">sm (2.5rem)</span><button class="btn-base btn-brand btn-sm">Get Started</button></div>
+            <div class="col"><span class="label">xs (2.125rem)</span><button class="btn-base btn-brand btn-xs">Get Started</button></div>
+            <div class="col"><span class="label">nav (2.25rem)</span><button class="btn-base btn-shimmer btn-nav-style btn-nav-size">Contact →</button></div>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">With icons</p>
+          <div class="row" style="align-items:center;">
+            <button class="btn-base btn-brand btn-lg">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Continue
+            </button>
+            <button class="btn-base btn-outline btn-lg">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              Search
+            </button>
+            <button class="btn-base btn-glass btn-lg">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </button>
+            <button class="btn-base btn-brand btn-lg btn-glow-pulse">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Pulsing Glow
+            </button>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">Icon buttons</p>
+          <div class="row" style="align-items:center;">
+            <button class="btn-base btn-outline btn-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <button class="btn-base btn-ghost btn-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </button>
+            <button class="btn-base btn-brand btn-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <button class="btn-base btn-destructive btn-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">States</p>
+          <div class="row" style="align-items:center;">
+            <button class="btn-base btn-brand btn-lg" disabled style="opacity:0.5;cursor:not-allowed;">Disabled</button>
+            <button class="btn-base btn-brand btn-lg" style="opacity:0.7;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              Loading...
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         BADGES
+         ══════════════════════════════════════════════ -->
+    <section id="badges">
+      <div class="section-header">
+        <div class="section-label-pill">Labels</div>
+        <h2>Badges</h2>
+        <p>Status badges for AI agents + semantic badge variants.</p>
+      </div>
+
+      <div class="col" style="gap:1.5rem;">
+        <div class="col">
+          <p class="label">Agent Status Badges</p>
+          <div class="row">
+            <span class="badge badge-available">Available</span>
+            <span class="badge badge-dev">In Active Development</span>
+            <span class="badge badge-roadmap">On the Roadmap</span>
+            <span class="badge badge-flagship">Flagship</span>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">shadcn-style Badges</p>
+          <div class="row">
+            <span class="badge badge-default">Primary</span>
+            <span class="badge badge-secondary">Secondary</span>
+            <span class="badge badge-outline">Outline</span>
+            <span class="badge badge-ghost">Ghost</span>
+            <span class="badge badge-destructive">Destructive</span>
+          </div>
+        </div>
+
+        <div class="col">
+          <p class="label">Overline Chip (animated pulse dot)</p>
+          <div class="row">
+            <span class="overline-chip"><span class="dot"></span>AI-Powered</span>
+            <span class="overline-chip"><span class="dot"></span>HIPAA Compliant</span>
+            <span class="overline-chip"><span class="dot"></span>Live in Production</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         CARDS
+         ══════════════════════════════════════════════ -->
+    <section id="cards">
+      <div class="section-header">
+        <div class="section-label-pill">Surfaces</div>
+        <h2>Cards</h2>
+        <p>Surface-level card, raised card, feature card, glow card, agent card.</p>
+      </div>
+
+      <div class="col" style="gap:2rem;">
+
+        <!-- Base & Raised -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Base Card / Raised Card</p>
+          <div class="grid-2">
+            <div class="card">
+              <div>
+                <div class="card-title">Base Card</div>
+                <div class="card-desc">surface-base background, default border.</div>
+              </div>
+              <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Used for panels and secondary content. Inherits the base surface level.</p>
+              <div class="card-footer-inner">Footer action · Updated 2h ago</div>
+            </div>
+            <div class="card card-raised">
+              <div>
+                <div class="card-title">Raised Card</div>
+                <div class="card-desc">surface-raised background, strong border.</div>
+              </div>
+              <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Elevated one level above base. Use for interactive or highlighted content.</p>
+              <div style="display:flex;gap:0.5rem;margin-top:auto;">
+                <button class="btn-base btn-brand btn-xs">Action</button>
+                <button class="btn-base btn-ghost btn-xs">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Feature Card</p>
+          <div class="grid-3">
+            <div class="feature-card">
+              <svg class="icon icon-lg feature-card-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <h4>Multi-Agent Orchestration</h4>
+                <p>18 purpose-built AI agents working in concert across every stage of the revenue cycle.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <svg class="icon icon-lg feature-card-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <h4>HIPAA-Compliant by Design</h4>
+                <p>Zero data retention, end-to-end encryption, and full audit trails built in from day one.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <svg class="icon icon-lg feature-card-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <h4>Real-Time Analytics</h4>
+                <p>Live dashboards showing denial rates, collection velocity, and AR aging across every payer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glow Cards -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Glow Card (hover for effect)</p>
+          <div class="grid-3">
+            <div class="glow-card">
+              <svg class="icon icon-lg" style="color:var(--blue-400);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;">
+                <h4 style="font-size:0.9375rem;font-weight:600;">Prior Auth Agent</h4>
+                <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.6;">Automates prior authorization requests with 94% approval rate.</p>
+              </div>
+            </div>
+            <div class="glow-card">
+              <svg class="icon icon-lg" style="color:var(--blue-400);" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;">
+                <h4 style="font-size:0.9375rem;font-weight:600;">Claims Scrubber</h4>
+                <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.6;">Catches errors pre-submission with 99.2% clean-claim rate.</p>
+              </div>
+            </div>
+            <div class="glow-card">
+              <svg class="icon icon-lg" style="color:var(--blue-400);" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;">
+                <h4 style="font-size:0.9375rem;font-weight:600;">Denial Intelligence</h4>
+                <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.6;">Identifies denial patterns and auto-generates appeal letters.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent Cards -->
+        <div>
+          <p class="label" style="margin-bottom:0.75rem;">Agent Card</p>
+          <div class="grid-4">
+            <div class="agent-card">
+              <span class="badge badge-flagship">Flagship</span>
+              <div style="position:relative;display:flex;flex-direction:column;gap:0.375rem;flex:1;">
+                <h4>Denial Intelligence Agent</h4>
+                <p>Identifies and categorizes denial patterns. Auto-generates appeal letters with supporting documentation.</p>
+              </div>
+              <span class="learn-more">Learn more →</span>
+            </div>
+            <div class="agent-card">
+              <span class="badge badge-available">Available</span>
+              <div style="position:relative;display:flex;flex-direction:column;gap:0.375rem;flex:1;">
+                <h4>Claims Scrubber Agent</h4>
+                <p>Pre-submission validation across 4,000+ edits to catch errors before they reach the payer.</p>
+              </div>
+              <span class="learn-more">Learn more →</span>
+            </div>
+            <div class="agent-card">
+              <span class="badge badge-dev">In Active Development</span>
+              <div style="position:relative;display:flex;flex-direction:column;gap:0.375rem;flex:1;">
+                <h4>Prior Auth Agent</h4>
+                <p>End-to-end automation of prior authorization workflows with payer-specific logic.</p>
+              </div>
+              <span class="learn-more">Learn more →</span>
+            </div>
+            <div class="agent-card">
+              <span class="badge badge-roadmap">On the Roadmap</span>
+              <div style="position:relative;display:flex;flex-direction:column;gap:0.375rem;flex:1;">
+                <h4>Eligibility Verifier</h4>
+                <p>Real-time eligibility and benefit verification across 1,800+ payers via unified API.</p>
+              </div>
+              <span class="learn-more">Learn more →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         UI ATOMS
+         ══════════════════════════════════════════════ -->
+    <section id="ui-atoms">
+      <div class="section-header">
+        <div class="section-label-pill">Atoms</div>
+        <h2>UI Atoms</h2>
+        <p>Section Label, Stat Block, Step Item, Trust Badge Strip, Separator.</p>
+      </div>
+
+      <div class="col" style="gap:3rem;">
+
+        <!-- Section Label -->
+        <div class="col">
+          <p class="label">Section Label</p>
+          <div class="row">
+            <div class="col">
+              <span class="label">Dark surface</span>
+              <p class="section-label">AI-Powered Platform</p>
+            </div>
+            <div class="col">
+              <span class="label">Light surface</span>
+              <p class="section-label light-mode">Agent Suite</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stat Blocks -->
+        <div class="col">
+          <p class="label">Stat Block</p>
+          <div class="row">
+            <div class="stat-block">
+              <p class="stat-value">97.3%</p>
+              <p class="stat-label">Clean claim rate, first pass</p>
+              <p class="stat-source">Source: 2025 RCMKit benchmarks</p>
+            </div>
+            <div class="stat-block">
+              <p class="stat-value">$4.2M</p>
+              <p class="stat-label">Avg. annual revenue recovered</p>
+              <p class="stat-source">Source: Customer aggregate</p>
+            </div>
+            <div class="stat-block">
+              <p class="stat-value">18</p>
+              <p class="stat-label">Purpose-built AI agents</p>
+            </div>
+            <div class="stat-block">
+              <p class="stat-value">48h</p>
+              <p class="stat-label">Average time to first revenue</p>
+              <p class="stat-source">Source: Onboarding data</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Separator -->
+        <div class="col">
+          <p class="label">Separator</p>
+          <div class="separator"></div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span style="font-size:0.875rem;color:var(--text-secondary)">Left</span>
+            <div class="separator-v" style="height:1.5rem;"></div>
+            <span style="font-size:0.875rem;color:var(--text-secondary)">Right</span>
+          </div>
+        </div>
+
+        <!-- Step Items -->
+        <div class="col">
+          <p class="label">Step Item</p>
+          <div class="col" style="gap:2.5rem;max-width:600px;">
+            <div class="step-item">
+              <span class="step-number">01</span>
+              <div class="step-body">
+                <h3>Connect your PM system</h3>
+                <p>Integrate in minutes via our native connectors for Epic, Athena, eClinicalWorks, and 30+ more platforms.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-number">02</span>
+              <div class="step-body">
+                <h3>Agents learn your payers</h3>
+                <p>Our AI models ingest your historical claims data and payer contracts to calibrate denial prediction and appeal logic.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-number">03</span>
+              <div class="step-body">
+                <h3>Revenue starts flowing</h3>
+                <p>First clean claims go out within 48 hours. Your team reviews exceptions; agents handle the rest.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Badge Strip -->
+        <div class="col">
+          <p class="label">Trust Badge Strip</p>
+          <p class="trust-strip">HIPAA Compliant · SOC 2 Type II · Human-in-the-loop · Auditable · Built for Healthcare</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         FORMS
+         ══════════════════════════════════════════════ -->
+    <section id="forms">
+      <div class="section-header">
+        <div class="section-label-pill">Data Entry</div>
+        <h2>Form Elements</h2>
+        <p>Input, Textarea, Select, Checkbox, Radio, Slider.</p>
+      </div>
+
+      <div class="grid-2" style="gap:2rem;align-items:start;">
+        <!-- Fields -->
+        <div class="col" style="gap:1.25rem;">
+          <div class="form-group">
+            <label class="form-label" for="inp-name">Full name</label>
+            <input class="input" id="inp-name" type="text" placeholder="Jane Smith" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-email">Work email</label>
+            <input class="input" id="inp-email" type="email" placeholder="jane@hospital.com" />
+            <span class="form-hint">We'll send your account details here.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sel-role">Role</label>
+            <select class="select" id="sel-role">
+              <option value="">Select role...</option>
+              <option>Revenue Cycle Director</option>
+              <option>Billing Manager</option>
+              <option>Practice Administrator</option>
+              <option>CFO</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-msg">Message</label>
+            <textarea class="textarea" id="inp-msg" placeholder="Tell us about your revenue cycle challenges..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferences</label>
+            <div class="col" style="gap:0.625rem;">
+              <label class="check-label"><input class="check-input" type="checkbox" checked /> Receive product updates</label>
+              <label class="check-label"><input class="check-input" type="checkbox" /> Join early access program</label>
+              <label class="check-label"><input class="check-input" type="checkbox" disabled /> HIPAA Business Associate Agreement</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred demo format</label>
+            <div class="col" style="gap:0.625rem;">
+              <label class="check-label"><input class="check-input" type="radio" name="demo" value="live" checked /> Live video demo</label>
+              <label class="check-label"><input class="check-input" type="radio" name="demo" value="async" /> Async video walkthrough</label>
+              <label class="check-label"><input class="check-input" type="radio" name="demo" value="self" /> Self-guided trial</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Monthly claim volume: <strong id="slider-val" style="color:var(--blue-400);">5,000</strong></label>
+            <input class="slider" type="range" min="100" max="50000" step="100" value="5000"
+              oninput="document.getElementById('slider-val').textContent = Number(this.value).toLocaleString()" />
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-tertiary);">
+              <span>100</span><span>50,000+</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Disabled input</label>
+            <input class="input" type="text" placeholder="Not editable" disabled />
+          </div>
+        </div>
+
+        <!-- Contact form card demo -->
+        <div class="contact-card">
+          <div>
+            <p class="section-label" style="margin-bottom:0.5rem;">Get in Touch</p>
+            <h3>Request a Demo</h3>
+            <p style="margin-top:0.5rem;">See how RCMKit can recover revenue your team is leaving on the table.</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cf-first">First name</label>
+              <input class="input" id="cf-first" type="text" placeholder="Jane" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-last">Last name</label>
+              <input class="input" id="cf-last" type="text" placeholder="Smith" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email">Work email</label>
+            <input class="input" id="cf-email" type="email" placeholder="jane@hospital.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-org">Organization</label>
+            <input class="input" id="cf-org" type="text" placeholder="City Medical Group" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-msg">Tell us about your challenges</label>
+            <textarea class="textarea" id="cf-msg" placeholder="What's your biggest revenue cycle pain point?" style="min-height:5rem;"></textarea>
+          </div>
+          <button class="btn-base btn-shimmer btn-cta btn-lg" style="width:100%;">Request Demo →</button>
+          <p class="trust-strip" style="text-align:center;">HIPAA Compliant · No spam · Cancel anytime</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         ACCORDION
+         ══════════════════════════════════════════════ -->
+    <section id="accordion">
+      <div class="section-header">
+        <div class="section-label-pill">Disclosure</div>
+        <h2>Accordion</h2>
+        <p>FAQ-style expandable disclosure with animated chevron.</p>
+      </div>
+
+      <div style="max-width:640px;">
+        <div class="accordion">
+          <div class="accordion-item open">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              How does RCMKit integrate with my EHR?
+              <svg class="chevron icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content-inner">
+                RCMKit connects via HL7 FHIR APIs and native PM connectors for Epic, Athena, eClinicalWorks, NextGen, and 30+ other platforms. Setup typically takes less than 2 hours with our dedicated implementation team.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              Is RCMKit HIPAA compliant?
+              <svg class="chevron icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content-inner">
+                Yes. RCMKit is HIPAA compliant by design. We sign a Business Associate Agreement (BAA) with every customer, maintain zero data retention for PHI in our AI processing pipeline, and operate on SOC 2 Type II certified infrastructure.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              What's the typical time to ROI?
+              <svg class="chevron icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content-inner">
+                Most customers see measurable improvement in clean claim rates within the first 30 days. Full ROI — measured by reduced denial rates and increased collection velocity — is typically achieved within 60–90 days of go-live.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              Can I keep my existing billing team?
+              <svg class="chevron icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content-inner">
+                Absolutely. RCMKit is designed to augment your team, not replace it. Agents handle high-volume, repetitive tasks while your staff focuses on complex cases and payer relationships. Human-in-the-loop controls give your team final say on every exception.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         LAYOUT
+         ══════════════════════════════════════════════ -->
+    <section id="layout">
+      <div class="section-header">
+        <div class="section-label-pill">Layout</div>
+        <h2>Header &amp; Footer</h2>
+        <p>Navigation header with glassmorphism, responsive footer.</p>
+      </div>
+
+      <div class="col" style="gap:1.5rem;">
+        <!-- Header demo -->
+        <div class="col">
+          <p class="label">Navigation Header</p>
+          <div class="demo-header">
+            <a href="#" class="demo-logo">RCM<span>Kit</span></a>
+            <nav class="demo-nav">
+              <a href="#">Home</a>
+              <a href="#">Platform</a>
+              <a href="#">Solutions ▾</a>
+              <a href="#">Security</a>
+              <a href="#">Integrations</a>
+              <a href="#">ROI</a>
+            </nav>
+            <button class="btn-base btn-shimmer btn-nav-style btn-nav-size">Contact →</button>
+          </div>
+        </div>
+
+        <!-- Footer demo -->
+        <div class="col">
+          <p class="label">Footer</p>
+          <div class="demo-footer">
+            <div>
+              <div class="footer-brand-name">RCM<span>Kit</span></div>
+              <p class="footer-brand-desc">18 AI agents purpose-built for healthcare revenue cycle management.</p>
+              <p class="trust-strip" style="margin-top:1rem;">Human-in-the-loop · Auditable · Built for healthcare</p>
+            </div>
+            <div>
+              <h3>Product</h3>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Platform</a></li>
+                <li><a href="#">Solutions</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Integrations</a></li>
+                <li><a href="#">ROI Estimator</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3>Legal</h3>
+              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.6;">© 2026 RCM Kit. All rights reserved.</p>
+              <p style="font-size:0.8125rem;color:var(--text-tertiary);line-height:1.6;margin-top:0.5rem;">HIPAA-compliant infrastructure. SOC 2 Type II in progress.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         HERO DEMO
+         ══════════════════════════════════════════════ -->
+    <section id="hero">
+      <div class="section-header">
+        <div class="section-label-pill">Composition</div>
+        <h2>Hero Section Demo</h2>
+        <p>Full hero composition with aurora background, overline chip, headline, and CTA row.</p>
+      </div>
+
+      <div class="hero-demo">
+        <span class="overline-chip"><span class="dot"></span>18 AI Agents · Live in Production</span>
+        <h2>The Revenue Cycle OS<br/>for Modern Healthcare</h2>
+        <p>Stop leaving money on the table. RCMKit's AI agents recover denied claims, prevent future denials, and compress your AR days — automatically.</p>
+        <div class="cta-row">
+          <button class="btn-base btn-shimmer btn-cta btn-lg">Request Demo →</button>
+          <button class="btn-base btn-outline btn-lg">See the Platform</button>
+        </div>
+        <div class="row" style="justify-content:center;gap:2.5rem;margin-top:1rem;">
+          <div class="stat-block" style="align-items:center;text-align:center;">
+            <p class="stat-value">97%</p>
+            <p class="stat-label" style="font-size:0.8125rem;">Clean claim rate</p>
+          </div>
+          <div class="separator-v" style="height:3rem;margin-top:0.5rem;"></div>
+          <div class="stat-block" style="align-items:center;text-align:center;">
+            <p class="stat-value">$4.2M</p>
+            <p class="stat-label" style="font-size:0.8125rem;">Avg. annual recovery</p>
+          </div>
+          <div class="separator-v" style="height:3rem;margin-top:0.5rem;"></div>
+          <div class="stat-block" style="align-items:center;text-align:center;">
+            <p class="stat-value">48h</p>
+            <p class="stat-label" style="font-size:0.8125rem;">Time to first revenue</p>
+          </div>
+        </div>
+        <p class="trust-strip">HIPAA Compliant · SOC 2 Type II · Human-in-the-loop · Auditable</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function toggleAccordion(trigger) {
+      const item = trigger.closest('.accordion-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      // Open clicked (toggle)
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Smooth scroll for nav
+    document.querySelectorAll('.page-nav a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html>

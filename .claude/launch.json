@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rcmkit",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["/Users/eugene/Local Sites/rcmkit/.claude/dev.sh"],
+      "port": 3000,
+      "autoPort": false
+    }
+  ]
+}
