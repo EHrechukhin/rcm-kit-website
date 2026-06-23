@@ -346,6 +346,12 @@ export function HeroCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{
+        maskImage:
+          "linear-gradient(to top, transparent 0%, rgba(0,0,0,0.35) 5%, #000 16%)",
+        WebkitMaskImage:
+          "linear-gradient(to top, transparent 0%, rgba(0,0,0,0.35) 5%, #000 16%)",
+      }}
       aria-hidden="true"
     />
   );

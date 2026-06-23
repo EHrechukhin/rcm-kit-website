@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ContactSection } from "@/components/contact-section/ContactSection";
 import { FAQSection } from "@/components/faq-section";
@@ -327,6 +327,9 @@ function AgentActivityFeed() {
 
 export default function HomePage() {
   const { open } = useContactModal();
+  const { scrollY } = useScroll();
+  const glowOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const glowScale = useTransform(scrollY, [0, 500], [1, 0.7]);
   return (
     <div className="bg-[#0d0d10] text-white">
       {/* ── Hero ── */}
@@ -358,6 +361,25 @@ export default function HomePage() {
         >
           <HeroCanvas />
         </motion.div>
+
+        {/* Centered green glow that blurs where the canvas lines originate; fades out on scroll */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-[42%] pointer-events-none z-[2]"
+          style={{
+            opacity: glowOpacity,
+            scale: glowScale,
+            transformOrigin: "50% 100%",
+            background:
+              "radial-gradient(55% 130% at 50% 100%, color-mix(in srgb, var(--brand) 30%, transparent), transparent 70%)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            maskImage:
+              "radial-gradient(55% 130% at 50% 100%, #000 0%, #000 40%, transparent 72%)",
+            WebkitMaskImage:
+              "radial-gradient(55% 130% at 50% 100%, #000 0%, #000 40%, transparent 72%)",
+          }}
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-24">
           <div className="flex flex-col gap-6">
@@ -412,35 +434,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.3, duration: 0.6 }}
-        >
-          {/* Mouse body */}
-          <div className="relative w-6 h-9 rounded-full border border-white/30 flex justify-center pt-1.5">
-            {/* Scroll dot */}
-            <motion.div
-              className="w-0.5 h-1.5 rounded-full bg-white/50"
-              animate={{ y: [0, 10, 0], opacity: [0.8, 0.1, 0.8] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-          {/* Arrow down */}
-          <motion.svg
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            className="text-white/30"
-            animate={{ y: [0, 3, 0], opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <path d="M1 1L6 7L11 1" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-          </motion.svg>
-        </motion.div>
-        
         <motion.div
           className="hidden xl:block absolute right-16 bottom-12 z-10 w-116"
           initial={{ opacity: 0, x: 24, filter: "blur(8px)" }}
